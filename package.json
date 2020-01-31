@@ -1,0 +1,22 @@
+{
+    "name": "remote",
+    "version": "1.0.0",
+    "description": "A remote control for pc",
+    "main": "main.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "keywords": [
+        "remote",
+        "rc",
+        "pc",
+        "phoneremote"
+    ],
+    "author": "Gigo_G",
+    "license": "ISC",
+    "dependencies": {
+        "robotjs": "^0.6.0",
+        "simpletts": "^2.4.0",
+        "ws": "^7.2.1"
+    }
+}

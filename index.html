@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Remote</title>
+</head>
+
+<body style="margin:0px;padding:0px;">
+    <label style="width:4%">X: </label><input type="range" id="x" min="0" max="1024" style="width:96%">
+    <br>
+    <label style="width:4%">Y: </label><input type="range" id="y" min="0" max="768" style="width: 96%;">
+    <br>
+    <button id="click">Click</button>
+    <br>
+    <label>Text: </label><input type="text" id="text">
+    <br>
+    <button id="type">Type</button>
+    <button id="say">Say</button>
+</body>
+<script>
+    let sock = new WebSocket("ws://192.168.0.105:3000");
+    const move = () => {
+        sock.send(JSON.stringify({
+            "op": "move",
+            "pos": {
+                "x": document.getElementById("x").value,
+                "y": document.getElementById("y").value
+            }
+        }));
+    };
+    document.getElementById("x").addEventListener("input", move);
+    document.getElementById("y").addEventListener("input", move);
+    document.getElementById("click").addEventListener("click", () => {
+        sock.send(JSON.stringify({
+            "op": "click"
+        }))
+    });
+    document.getElementById("type").addEventListener("click", () => {
+        sock.send(JSON.stringify({
+            "op": "type",
+            "text": document.getElementById("text").value
+        }))
+    });
+    document.getElementById("say").addEventListener("click", () => {
+        sock.send(JSON.stringify({
+            "op": "say",
+            "text": document.getElementById("text").value
+        }))
+    });
+</script>
+
+</html>
